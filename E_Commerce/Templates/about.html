@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inder&display=swap" rel="stylesheet">
+    <link href="/media/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <title>AuraMart</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: "Inder", serif;
+            font-weight: 400;
+            font-style: normal;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Inder", serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFD800;
+        }
+        /* Header Section */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 80px;
+            background-color: #FFD800;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo {
+            font-size: 26px;
+            /* font-weight: bold; */
+            color: #000;
+        }
+
+        .logo span {
+            color: #1D84F7;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 50px;
+        }
+
+        .nav-links a {
+            position: relative;
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+            transition: 0.3s;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0%;
+            height: 2px;
+            background-color: #1D84F7;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        /* Main Content */
+        main {
+            width: 80%;
+            margin: 10px 80px;
+        }
+        h1 {
+            font-size: 40px;
+            color: black;
+        }
+        h1 span {
+            color: #1D84F7;
+        }
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+            text-align: justify;
+        }
+        .top-image {
+            width: 100%;
+            margin-top: 30px;
+            transform: translate(7%,2%);
+        }
+        h2 {
+            font-size: 24px;
+            color: black;
+            margin-top: 30px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        ul li {
+            margin: 10px 0;
+        }
+
+        ul li::before {
+            content: "➜	"; /* Custom bullet */
+            color: black;
+            font-size: 18px;
+            margin-right: 10px;
+    }
+        /* Bottom Images */
+        .image-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            margin-left: 100px;           
+        }
+        .image-gallery img {
+            width: 30%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">Aura<span>Mart</span></div>
+        <nav class="nav-links">
+            {%if not login%}
+            <a href="/join_aura/">Aura Join</a>
+            {%endif%}
+            <a href="#">Contact</a>
+            <a href="/home_page/">Home</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <h1>Shop Smart, Shop Aura<span>Mart</span>!</h1>
+        <p>
+            Welcome to AuraMart, your AI-driven, secure e-commerce platform designed to provide a seamless, personalized, and safe shopping experience. 
+            We combine cutting-edge technology with user-friendly features to make online shopping effortless and secure.
+        </p>
+
+        <img src="/static/image/purchase-process-order-processed-complete-cash-on-delivery-online-store-e-commerce-website-shipping-details-set-flat-vector-modern-illustration-2M9EKRN-removebg-preview.png" alt="E-commerce Illustration" class="top-image">
+
+        <h2>Meet the Visionaries Behind Aura<span>Mart</span></h2>
+        <ul>
+            <li>Adishesh Bolishetti</li>
+            <li>Abhay V Pawar</li>
+            <li>Aditya Dhongadi</li>
+            <li>Kedar Vastrad</li>
+        </ul>
+
+        <h2>Where Innovation Meets Convenience!</h2>
+        <ul>
+            <li>AI-Powered Personalization – Smart recommendations tailored to your preferences.</li>
+            <li>Secure Transactions – Multi-factor authentication (MFA) and encrypted data storage.</li>
+            <li>Real-Time Order Tracking – Stay updated on every step of your order journey.</li>
+            <li>Easy Business Management – Powerful tools for sellers to manage products, orders, and customers.</li>
+        </ul>
+
+        <!-- Bottom Images -->
+        <div class="image-gallery">
+            <img src="/static/image/illustration-of-shopping-and-spending-money-with-e-commerce-apps-own-your-own-shop-with-e-commerce-find-the-right-item-with-online-shops-landing-page-template-for-web-websites-site-banner-flyer-fre.jpg" alt="Innovation Image">
+            <img src="/static/image/images.jpg" alt="Order Tracking">
+            <img src="/static/image/contact.jpg" alt="Customer Support">
+        </div>
+    </main>
+
+</body>
+</html>

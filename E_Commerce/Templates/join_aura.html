@@ -1,0 +1,226 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inder&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <title>AuraMart Login & Signup</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: "Inder", serif;
+            font-weight: 400;
+            font-style: normal;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inder", serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'image/join_aura_bg.png' %}");
+            background-size: 85%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; 
+            overflow-x: hidden;
+        }
+
+        header {
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: flex-start;
+            margin: 0 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .black { color: black; }
+        .blue { color: #1D63FF; }
+
+        .container {
+            display: flex;
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            align-items: flex-end;
+            justify-content: space-evenly;
+        }
+
+        .card-left, .card-right {
+            background-color: #ffffff77;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            position: absolute;
+            transition: opacity 0.3s ease;
+        }
+
+        .card-left {
+            height: 500px;
+            bottom: 0;
+            left: 150px;
+        }
+
+        .card-right {
+            height: 550px;
+            right: 230px;
+            top: 10px; 
+        }
+
+        .disabled-form {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 26px;
+            padding-bottom: 35px;
+            color: #125dff;
+        }
+
+        label {
+            margin-top: 22px;
+            display: block;
+            font-size: 16px;
+            padding-bottom: 10px;
+        }
+
+        input {
+            padding: 10px;
+            margin-top: 5px;
+            border: 2px solid #1D63FF;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        input:focus {
+            border: 3px solid blue;
+            outline: none;
+        }
+
+        .forgot {
+            font-size: 14px;
+            color: #1D63FF;
+            margin-top: 15px;
+            text-decoration: underline;
+            display: block;
+        }
+
+        .btn {
+            background-color: #ffffff77;
+            color: #1D63FF;
+            border: 2px solid #1D63FF;
+            padding: 12px;
+            margin-top: 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.50s ease, box-shadow 0.50s ease, background-color 0.50s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            background-color: #1D63FF;
+            color: white;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+            border: none;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span class="black">Aura</span><span class="blue">Mart</span></h1>
+    </header>
+
+    <div class="container">
+        <form method="POST" action="/login/"  class="card-left" id="login-form">
+            {% csrf_token %}
+            <h2>AuraLink</h2>
+            {%if error_message_login%}
+            <p style="color: red;">{{error_message_login}}</p>
+            {%endif%}
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Enter email" required autocomplete="on">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Enter password" required>
+            <a href="#" class="forgot">Forgot Password?</a>
+            <button class="btn" type="submit">AuraLink</button>
+        </form>
+
+        <form method="POST" action="/regester/" class="card-right" id="signup-form">
+            {% csrf_token %}
+            <h2>AuraEntry</h2>
+            {%if error_message_regester%}
+            <p style="color: red;">{{error_message_regester}}</p>
+            {%endif%}
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" placeholder="Enter name" required autocomplete="off">
+            <label for="regester-email">Email</label>
+            <input type="email" name="regester-email" id="regester-email" placeholder="Enter email" placeholder="Enter email" required>
+            <label for="password1">Password</label>
+            <input type="password" name="password1" id="password1" placeholder="Enter password" required
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]+$"
+            title="Password must include one uppercase letter, one lowercase letter, one number, and one special character.">
+            <button class="btn" type="submit">AuraEntry</button>
+        </form>
+    </div>
+    
+    <script>
+        const loginForm = document.getElementById("login-form");
+        const signupForm = document.getElementById("signup-form");
+
+        function disableOtherForm(selectedForm, otherForm) {
+            if (!otherForm.classList.contains("disabled-form")) {
+                otherForm.classList.add("disabled-form");
+                otherForm.querySelectorAll("input, button").forEach(el => {
+                    el.disabled = true;
+                });
+            }
+        }
+
+        function enableBothForms() {
+            loginForm.classList.remove("disabled-form");
+            signupForm.classList.remove("disabled-form");
+
+            document.querySelectorAll("input, button").forEach(el => {
+                el.disabled = false;
+                if (el.tagName === "INPUT") el.value = "";  // Reset input fields
+            });
+        }
+
+        loginForm.addEventListener("click", (event) => {
+            event.stopPropagation(); // Prevents event bubbling
+            disableOtherForm(loginForm, signupForm);
+        }); 
+
+        signupForm.addEventListener("click", (event) => {
+            event.stopPropagation();
+            disableOtherForm(signupForm, loginForm);
+        });
+
+        document.body.addEventListener("dblclick", enableBothForms);
+
+        gsap.from(".card-left, .card-right", {
+        scale: 0.8, 
+        opacity: 0, 
+        duration: 1, 
+        ease: "power3.out"
+    });
+    </script>
+</body>
+</html>

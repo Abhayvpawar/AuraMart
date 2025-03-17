@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inder&display=swap" rel="stylesheet">
+    <title>AuraMart - Orders</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: "Inder", serif;
+            font-weight: 400;
+            font-style: normal;
+            box-sizing: border-box;
+        }
+
+        body{
+            background-color: #FFCE32;
+            margin: 2.5rem;
+        }
+
+        body::-webkit-scrollbar {
+            display: none; /* Hides scrollbar in Chrome, Safari, Edge */
+        }
+
+        a{
+            color: #1E1E1E;
+            text-decoration: none;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 50px;
+            background-color: #FFCE32;
+            margin-bottom: 1.5rem;
+            position: fixed;
+            top: 0;
+            width: 93%;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 26px;
+            /* font-weight: bold; */
+            color: #000;
+        }
+
+        .logo span {
+            color: #1D84F7;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 50px;
+        }
+
+        .nav-links a {
+            position: relative;
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+            transition: 0.3s;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0%;
+            height: 2px;
+            background-color: #1D84F7;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .container {
+            width: 93.5%;
+            margin: auto;
+            padding-top: 20px;
+        }
+        h2 {
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+        .divider {
+            border-bottom: 1px solid black;
+            margin-bottom: 20px;
+        }
+        .order-card {
+            background-color: #FFECB3;
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+        }
+        .order-card h3 {
+            margin: 0 0 10px;
+        }
+        .order-card hr {
+            border: none;
+            border-top: 1px solid gray;
+            margin: 10px 0;
+        }
+
+        p{
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Aura<span>Mart</span></div>     
+        <nav class="nav-links">
+            <a href="/home_page/">Home</a>
+            <a href="/aurabag/">AuraBag</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+    <div class="container">
+        <h2>Orders</h2>
+        <div class="divider"></div>
+    </div>
+    {% for order in orders %}
+        <div class="container">
+            <div class="order-card">
+                <h3>Order ID: {{ order.order_id }}</h3>
+                <hr>
+                <p>Ordered Date: {{ order.created_at|date:"d/m/Y" }}</p>
+                <p>Total Price: ₹ {{ order.total_price }}</p>
+            </div>
+        </div>
+    {% empty %}
+        <p style="margin-left: 50px; color: red; font-size: 1.5rem;">No orders found.</p>
+    {% endfor %}
+</body>
+</html>

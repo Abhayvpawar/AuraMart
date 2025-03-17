@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inder&display=swap" rel="stylesheet">
+    <title>Profile Edit - AuraMart</title>
+    <style>
+        body {
+            font-family: "Inder", serif;
+            font-weight: 400;
+            margin: 0;
+            padding: 0;
+            background-color: #FFD800;
+        }
+
+        body::-webkit-scrollbar {
+            display: none; /* Hides scrollbar in Chrome, Safari, Edge */
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            padding: 20px 80px;
+            background-color: #FFD800;
+        }
+
+        .logo {
+            font-size: 26px;
+            color: #000;
+        }
+
+        .logo span {
+            color: #1D84F7;
+        }
+
+        .container {
+            background-color: #FFEB9C; 
+            padding: 60px;
+            padding-top: 30px;
+            border-radius: 20px;    
+            width: 50%;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+        }
+
+        h2 {
+            text-align: center;
+            font-size:40px;
+            color: #333;
+            margin-bottom: 2.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            /* justify-content: space-between; */
+            margin-bottom: 30px;
+        }
+
+        label {
+            width: 30%;
+            font-size: 18px;
+            font-weight: 200px;
+        }
+
+        input{
+            width: 65%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 16px;
+            font-size: 14px;
+        }
+
+        input:focus{
+            border: 3px solid #1D84F7;
+            outline: none;
+        }
+
+        select:focus{
+            border: 3px solid #1D84F7;
+            outline: none;
+        }
+
+        select{
+            width: 40%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 16px;
+            font-size: 14px;
+        }
+
+        .btn {
+            background-color: #ffffff77;
+            color: #1D63FF;
+            border: 2px solid #1D63FF;
+            padding: 8px;
+            margin-top: 02px;
+            /* margin-left: 250px; */
+            border-radius: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 25%;
+            transition: transform 0.50s ease, box-shadow 0.50s ease, background-color 0.50s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            background-color: #1D63FF;
+            color: white;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Aura<span>Mart</span></div>
+    </header>
+
+    <div class="container">
+        <h2>Profile Details</h2>
+        <form action="/profile_form/" method="POST"> 
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="firstname">First Name :</label>
+                <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" required>
+            </div>
+            <div class="form-group">
+                <label for="lastname">Last Name :</label>
+                <input type="text" id="lastname" name="lastname" placeholder="Enter your number" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number :</label>
+                <input type="text" id="phone" name="phone" placeholder="Enter your number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="country">Country :</label>
+                <select id="country" name="country">
+                    <option value="" disabled selected>Select your country</option>
+                    
+                    <optgroup label="A">    
+                        <option value="Afghanistan">Afghanistan</option>
+                        <option value="Albania">Albania</option>
+                        <option value="Algeria">Algeria</option>
+                        <option value="Andorra">Andorra</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Austria">Austria</option>
+                    </optgroup>
+                
+                    <optgroup label="B">
+                        <option value="Bahamas">Bahamas</option>
+                        <option value="Bahrain">Bahrain</option>
+                        <option value="Bangladesh">Bangladesh</option>
+                        <option value="Barbados">Barbados</option>
+                        <option value="Belgium">Belgium</option>
+                        <option value="Bhutan">Bhutan</option>
+                        <option value="Brazil">Brazil</option>
+                    </optgroup>
+                
+                    <optgroup label="C">
+                        <option value="Canada">Canada</option>
+                        <option value="China">China</option>
+                        <option value="Colombia">Colombia</option>
+                        <option value="Costa Rica">Costa Rica</option>
+                        <option value="Croatia">Croatia</option>
+                    </optgroup>
+                
+                    <optgroup label="D">
+                        <option value="Denmark">Denmark</option>
+                        <option value="Dominican Republic">Dominican Republic</option>
+                    </optgroup>
+                
+                    <optgroup label="E">
+                        <option value="Egypt">Egypt</option>
+                        <option value="Estonia">Estonia</option>
+                    </optgroup>
+                
+                    <optgroup label="F">
+                        <option value="France">France</option>
+                        <option value="Finland">Finland</option>
+                    </optgroup>
+                
+                    <optgroup label="G">
+                        <option value="Germany">Germany</option>
+                        <option value="Greece">Greece</option>
+                    </optgroup>
+                
+                    <optgroup label="I">
+                        <option value="India" selected>India</option>
+                        <option value="Indonesia">Indonesia</option>
+                        <option value="Italy">Italy</option>
+                    </optgroup>
+                
+                    <optgroup label="J">
+                        <option value="Japan">Japan</option>
+                    </optgroup>
+                
+                    <optgroup label="K">
+                        <option value="Kenya">Kenya</option>
+                        <option value="Kuwait">Kuwait</option>
+                    </optgroup>
+                
+                    <optgroup label="M">
+                        <option value="Malaysia">Malaysia</option>
+                        <option value="Mexico">Mexico</option>
+                        <option value="Morocco">Morocco</option>
+                    </optgroup>
+                
+                    <optgroup label="N">
+                        <option value="Nepal">Nepal</option>
+                        <option value="Netherlands">Netherlands</option>
+                        <option value="New Zealand">New Zealand</option>
+                    </optgroup>
+                
+                    <optgroup label="P">
+                        <option value="Pakistan">Pakistan</option>
+                        <option value="Philippines">Philippines</option>
+                        <option value="Portugal">Portugal</option>
+                    </optgroup>
+                
+                    <optgroup label="R">
+                        <option value="Russia">Russia</option>
+                    </optgroup>
+                
+                    <optgroup label="S">
+                        <option value="Saudi Arabia">Saudi Arabia</option>
+                        <option value="Singapore">Singapore</option>
+                        <option value="South Africa">South Africa</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Sweden">Sweden</option>
+                        <option value="Switzerland">Switzerland</option>
+                    </optgroup>
+                
+                    <optgroup label="U">
+                        <option value="United Arab Emirates">United Arab Emirates</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="United States">United States</option>
+                    </optgroup>
+                
+                    <optgroup label="V">
+                        <option value="Vietnam">Vietnam</option>
+                    </optgroup>
+                </select>
+                
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender :</label>
+                <select id="gender" name="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="address1">Address 1 :</label>
+                <input type="text" id="address1" name="address1" placeholder="Enter your address" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address2">Address 2 :</label>
+                <input type="text" id="address2" name="address2" placeholder="Enter your address">
+            </div>
+
+            <button type="submit" class="btn">Save</button>
+        </form>
+    </div>
+
+</body>
+</html>

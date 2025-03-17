@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraMart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inder&display=swap" rel="stylesheet">
+    <link href="/media/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+     <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: "Inder", serif;
+            font-weight: 400;
+            font-style: normal;
+            box-sizing: border-box;
+        }
+
+        body{
+            background-color: #FFCE32;
+            margin: 2.5rem;
+        }
+
+        a{
+            color: #1E1E1E;
+            text-decoration: none;
+        }
+
+        .navbar{
+            padding: 1rem 1.5rem;
+            position: relative;
+            display: flex;
+            z-index: 99;
+            justify-content: space-between;
+            align-items: center;
+            /* margin: 0 2rem; */
+        }
+
+        .navbar h1{
+            font-size: 2.5rem;
+        }   
+
+        .menu{
+            display: flex;
+            align-items: center;
+            margin: 0 -1rem;
+        }
+
+        .menu a{
+            margin: 0 2rem;
+            font-size: 1.5rem;
+            transition: 0.3s;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .menu a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0%;
+            height: 2.5px;
+            background-color: #1D84F7;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .menu a:hover::after {
+            width: 100%;
+        }
+
+        .content{
+            /* border: 3px solid red; */
+            display: inline-block;
+            margin: 1.7rem;
+            margin-left: 1.9rem;
+            transform: translate(0,5%);
+        }
+
+        .content p{
+            font-size: 6rem;
+        }
+
+        .content span{
+            color: #1D63FF;
+        }
+
+        .button{
+            display: inline-block;
+            background-color: #1D63FF;
+            border-radius: 3.5rem;
+            padding: 1rem 2.5rem; 
+            margin-top: 1.2rem;
+            align-items: center;
+        }
+
+        .button a{
+            color: #FFF;
+            text-decoration: none;
+            font-size: 2.5rem;
+        }
+
+        .image{
+            display: inline-block;
+            transform:  translate(100px,75px);
+        }
+     </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <h1>Aura<span style="color: #1D63FF;">Mart</span></h1>
+
+            <div class="menu">
+                <a href="/about/" target="_blank">About</a>
+                <a href="#">FAQ</a>
+                {%if not login%}
+                <a href="/join_aura/">Aura Join</a>
+                {%endif%}
+                <a href="#">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="content">
+            <p>Aura<span>Mart</span></p>
+            <p>Make Shopping</p>
+            <p>Now!</p>
+            <div class="button">
+                <a href="/home_page/">Get Started</a>
+            </div>
+        </section>
+        <div class="image">
+            <img src="/static/image/Ecommerce_Home_Shopping_3D_Illustration_(1).png" alt="img" width="520px">
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        gsap.from(".navbar h1", { opacity: 0, y: -50, duration: 0.8, ease: "power3.out" });
+
+        gsap.from(".menu a", {
+            opacity: 0,
+            y: -20,
+            duration: 0.8,
+            stagger: 0.2, // Stagger effect
+            ease: "power3.out"
+        });
+
+        gsap.from(".content p", {
+            opacity: 0,
+            x: -50,
+            duration: 1,
+            stagger: 0.3, // Each line appears with a delay
+            ease: "power3.out"
+        });
+
+        gsap.from(".button", {
+            opacity: 0,
+            scale: 0.5,
+            duration: 0.8,
+            delay: 1.2,
+            ease: "back.out(1.5)"
+        });
+
+        gsap.from(".image img", {
+            opacity: 0,
+            x: 100,
+            duration: 1.2,
+            delay: 1.5,
+            ease: "power3.out"
+        });
+    });
+
+    </script>
+</body>
+</html>

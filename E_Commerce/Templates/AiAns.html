@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Response</title>
+    <style>
+        body {
+            background-color: #FFD700;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            width: 90%;
+            margin: 20px auto;
+            gap: 20px;
+        }
+        .ai-response {
+            width: 60%;
+            background: #FFF8DC;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .suggested-products {
+            width: 40%;
+            background: #FFE4B5;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            color: #000;
+        }
+        .product {
+            background: #FFF;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="ai-response">
+            <h2>AI Response</h2>
+            <p id="ai-text">{{ response|safe }}</p> <!-- Fix encoding issue -->
+        </div>
+        <div class="suggested-products">
+            <h2>Suggested Products</h2>
+            <div class="product">Product 1</div>
+            <div class="product">Product 2</div>
+            <div class="product">Product 3</div>
+        </div>
+    </div>
+</body>
+</html>

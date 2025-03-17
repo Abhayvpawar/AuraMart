@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inder&display=swap" rel="stylesheet">
+    <link href="/media/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <title>AuraMart</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Inder", serif;
+            background-color: #FFD800;
+        }
+
+        body::-webkit-scrollbar {
+            display: none; /* Hides scrollbar in Chrome, Safari, Edge */
+        }
+
+        a{
+            text-decoration: none;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 50px;
+            background-color: #FFD800;
+            margin-bottom: 1.5rem;
+            position: fixed;
+            top: 0;
+            width: 93%;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 26px;
+            /* font-weight: bold; */
+            color: #000;
+        }
+
+        .logo span {
+            color: #1D84F7;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width:  40%;
+            gap: 10px;
+            border: 3px solid #1D84F7;
+            border-radius: 20px;
+            padding: 5px 10px;
+            background-color: #E9D289;
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            background: none;
+            padding: 5px;
+            font-size: 16px;
+            color: #000;
+            flex: 1; /* Make the input take available space */
+        }
+
+        .search-bar button {
+            background-color: transparent;
+            border: none; 
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .search-bar img {
+            width: 16px;
+            height: 16px;
+            margin-left: 330px;
+            margin-top: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 50px;
+        }
+
+        .nav-links a {
+            position: relative;
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+            transition: 0.3s;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0%;
+            height: 2px;
+            background-color: #1D84F7;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 20px 50px;
+            margin-top: 70px;
+        }
+
+        .card {
+            background-color: #F0D275;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 3px solid #1D84F7;
+            padding-right: 21px;
+        }
+
+        .card img {
+            width: 100%;
+            height: 250px;
+            object-fit: fit;
+            border-radius: 16px;
+            background-color: #F0D275;
+            padding: 10px;
+            transition: transform .3s ease-in-out;
+            aspect-ratio: 2/1;
+        }
+
+        .card img:hover{
+            transform: scale(1.1);
+        }
+
+        .card .details {
+            background-color: #E9D289;
+            padding: 10px;
+            font-size: 14px;
+            color: #333;
+            width: 100%;
+            height: 100%;
+        }
+        footer {
+            background-color: #e3ae10a0;
+            padding: 30px 50px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            font-size: 14px;
+            color: #333;
+            margin-top: 1.5rem;
+            /* bottom: 0; */
+        }
+        footer div:first-child {
+            grid-column: span 2; /* Make the first column span across two grid spaces */
+        }
+
+        footer div {
+            line-height: 1.6;
+        }
+
+        footer h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #1D84F7; /* Blue for headings */
+            letter-spacing: .25mm;
+        }
+
+        footer p, footer a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        footer .social-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        footer .social-icons img {
+            width: 32px;
+            height: 32px;
+        }
+
+        footer .social-icons h3 {
+            margin-bottom: 20px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Aura<span>Mart</span></div>
+        <div class="search-bar">
+            <form id="search-form">
+                <input type="text" id="searchBox" placeholder="Search">
+                <button type="submit">
+                    <img src="https://img.icons8.com/ios-filled/50/1D84F7/search--v1.png" alt="Search" class="search_img">
+                </button>
+            </form>
+        </div>        
+        <nav class="nav-links">
+            <a href="/aurabag/">AuraBag</a>
+            <a href="#">Contact</a>
+            {%if login%}
+                <a href="/order_page/">Orders</a>
+                <a href="/profile/">Profile</a>
+            {%endif%}
+            {%if not login%}
+                <a href="/join_aura/">Aura Join</a>
+            {%endif%}
+
+        </nav>
+    </header>
+
+    <main class="content">
+
+        {% for product in products %}
+            <div class="card">
+                <a href="{% url 'product_page' product.id %}">
+                    <img src="{{ product.image.url }}" alt="Product">
+                    <div class="details">{{ product.description }}</div></a>
+            </div>
+        {% endfor %}
+
+    </main>
+
+    <footer>
+        <div>
+            <h3><span style="color: #000;">Aura</span>Mart</h3>
+            <p>94QC+9RH, Hubli - Dharwad Rd, Vidya Nagar,<br>Hubballi, Karnataka 580031</p>
+        </div>
+        <div>
+            <h3>Customers</h3>
+            <a href="#">Go To Top</a><br>
+            <a href="#">Return Policy</a><br>
+            <a href="#">FAQ</a><br>
+            <a href="#">Help Center</a>
+        </div>
+        <div>
+            <h3>Company</h3>
+            <a href="/about/" target="_blank">About Us</a><br>
+            <a href="#">Careers</a><br>
+            <a href="#">Terms</a><br>
+            <a href="#">Privacy Policies</a>
+        </div>
+        <div>
+            <h3>Contact Us</h3>
+            <p>+91 968634254</p>
+            <p>auramart@gmail.com</p>
+            <p>Mon-Fri 9am-9pm</p>
+        </div>
+        <div class="social-icons">
+            <h3>Follow Us</h3>
+            <a href="https://www.facebook.com/facebook/" target="_blank"><img src="https://img.icons8.com/ios-filled/50/000000/facebook-new.png" alt="Facebook"></a>
+            <a href="https://www.instagram.com/" target="_blank"><img src="https://img.icons8.com/ios-filled/50/000000/instagram-new.png" alt="Instagram"></a>
+            <a href="https://x.com/?lang=en&mx=2" target="_blank"><img src="/static/image/download-removebg-preview.png" alt="X"></a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    // Logo Animation
+    gsap.from(".logo", {
+        opacity: 0,
+        y: -30,
+        duration: 1,
+        ease: "power3.out"
+    });
+
+    // Navigation Links Animation (Appear Together)
+    gsap.from(".nav-links a", {
+        opacity: 0,
+        y: -20,
+        duration: 3,
+        ease: "power3.out"
+    });
+
+    // Search Bar Animation
+    gsap.from(".search-bar", {
+        opacity: 0,
+        scale: 0.8,
+        duration: 1,
+        delay: 0.5,
+        ease: "back.out(1.5)"
+    });
+
+    // Product Cards Animation (Staggered)
+    gsap.from(".card", {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        stagger: 0.2,
+        delay: 1,
+        ease: "power3.out"
+    });
+
+    // Footer Animation
+    gsap.from("footer", {
+        opacity: 0,
+        y: 50,
+        duration: 1.2,
+        delay: 1.5,
+        ease: "power3.out"
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+        console.log("JavaScript loaded!"); // Debugging
+
+        let searchForm = document.getElementById("search-form");
+        let searchInput = document.getElementById("searchBox");
+
+        if (!searchForm || !searchInput) {
+            console.error("Search form or input not found!");
+            return;
+        }
+
+        searchForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            console.log("Search form submitted!"); // Debugging
+
+            let query = searchInput.value.trim();
+            if (!query) {
+                alert("Please enter a search term.");
+                return;
+            }
+
+            fetch(`/api/search/?q=${query}`, {
+                headers: {
+                    "Authorization": "Token 1781812023b47d8351440e2a3a2fcaf6e42464ee"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Product search results:", data); // Debugging
+
+                if (data.length > 0) {
+                    console.log(`Redirecting to /product_page/${data[0].id}/`);
+                    window.location.href = `/product_page/${data[0].id}/`;
+                } else {
+                    alert("No products found.");
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching data:", error);
+                alert("An error occurred while searching.");
+            });
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inder&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <title>Reset Password</title>
+    <style>
+        body {
+            font-family: "Inder", serif;
+            font-weight: 400;
+            margin: 0;
+            padding: 0;
+            background-color: #FFD800;
+        }
+
+        body::-webkit-scrollbar {
+            display: none; /* Hides scrollbar in Chrome, Safari, Edge */
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            padding: 20px 80px;
+            background-color: #FFD800;
+        }
+
+        .logo {
+            font-size: 26px;
+            color: #000;
+        }
+
+        .logo span {
+            color: #1D84F7;
+        }
+
+        section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        .container {
+            background-color: #ffeb99;
+            padding: 80px;
+            padding-top: 50px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .container h2 {
+            margin-bottom: 55px;
+            font-size: 30px;
+            color: #333;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-group label {
+            width: 300px;
+            font-size: 18px;
+            color: black;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background-color: #fff5cc;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .btn {
+            background-color: #ffffff77;
+            color: #1D63FF;
+            border: 2px solid #1D63FF;
+            padding: 10px;
+            border-radius: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 25%;
+            transition: transform 0.50s ease, box-shadow 0.50s ease, background-color 0.50s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            background-color: #1D63FF;
+            color: white;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+            border: none;   
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: flex-start; /* Aligns button to the left */
+            margin-top: 20px;
+        }
+
+        .container-check{
+            width: 40vw;
+            height: 35vh;
+        }
+
+        .container-que{
+            width: 40vw;
+            height: 43vh;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            /* justify-content: space-between; */
+            margin-bottom: 30px;
+        }
+
+        label.que {
+            width: 138px;
+            font-size: 18px;
+            font-weight: 200px;
+        }
+
+        select:focus{
+            border: 3px solid #1D84F7;
+            outline: none;
+        }
+
+        select{
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-left: 105px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Aura<span>Mart</span></div>
+    </header>
+
+    {% if successful == False %}
+    <section class="check">
+        <div class="container container-check">
+            <h2>Check Identity</h2>
+            {%if error_message_check %}
+            <p style="color: red; text-align: left; margin-bottom: 25px;">{{error_message_check}}</p>
+            {%endif%}
+            <form action="/security_check/" method="POST">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="question">Password :</label>
+                    <input type="password" id="password" name="password" placeholder="enter password" required>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="btn">Check</button>
+                </div>
+            </form>
+        </div>
+    </section><br>
+
+    {% else %}
+    <section class="question">
+        <div class="container container-que">
+            <h2>Reset Password</h2>
+            <form action="/security_que/" method="post">
+                {% csrf_token %}
+            <div class="form-group">
+                <label for="question" class="que">Question :</label>
+                <select id="que" name="question">
+                    <option value="What was your childhood nickname ?">What was your childhood nickname ?</option>
+                    <option value="Your favourite person ?">Your favourite person ?</option>
+                    <option value="Your favourite relative name?">Your favourite relative name?</option>
+                    <option value="What was your first online game you played ?">What was your first online game you played ?</option>
+                </select>
+            </div>
+                <div class="input-group">
+                    <label for="answer">Answer :</label>
+                    <input type="text" id="answer" name="answer" placeholder="enter answer" required>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="btn">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    {% endif %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            
+            gsap.from(".logo", {
+                opacity: 0,
+                y: -30,
+                duration: 1.5,
+                ease: "power3.out"
+            });
+            
+            gsap.from(".check", {
+                opacity: 0,
+                x: -50,
+                duration: 1,
+                stagger: 2.5,
+                delay: .5,  
+                ease: "power3.out"
+            });
+
+            gsap.from(".question", {
+                opacity: 0,
+                x: -50,
+                duration: 1,
+                stagger: 2.5,
+                delay: .5,
+                ease: "power3.out"
+            });
+        });
+    </script>
+</body>
+</html>

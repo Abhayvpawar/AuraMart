@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inder&display=swap" rel="stylesheet">
+    <link href="/media/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <title>AuraMart - Cart</title>
+    <style>
+        body {
+            font-family: "Inder", serif;
+            font-weight: 400;
+            font-style: normal;
+            margin: 0;
+            padding: 0;
+            background-color: #FFD800;
+        }
+
+        body::-webkit-scrollbar {
+            display: none; /* Hides scrollbar in Chrome, Safari, Edge */
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 50px;
+            background-color: #FFD800;
+            margin-bottom: 2.5rem;
+            position: fixed;
+            top: 0;
+            width: 93%;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 26px;
+            /* font-weight: bold; */
+            color: #000;
+        }
+
+        .logo span {
+            color: #1D84F7;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 50px;
+        }
+
+        .nav-links a {
+            position: relative;
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+            transition: 0.3s;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0%;
+            height: 2px;
+            background-color: #1D84F7;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px 50px;
+            margin-top: 70px;
+        }
+
+        .cart_name{
+            margin-left: 50px;
+            margin-right: 50px;
+            margin-top: 50px;
+            position: fixed;
+            top: 0;
+            width: 93%;
+            z-index: 1000;
+            background-color: #FFD800;
+        }
+        
+        .container {
+            margin-left: 50px;
+            display: flex; /* Aligns table and price-box side by side */
+            justify-content: space-between; /* Ensures space between them */
+            align-items: flex-start; /* Aligns them at the top */
+            margin-top: 100px;
+            /* position: fixed; */
+        }
+        .cart-items {
+            width: 1000px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .cart-items th, .cart-items td {
+            padding: 20px 20px 20px 0px;
+            text-align: center; /* Centers content horizontally */
+            vertical-align: middle; /* Centers content vertically */
+            text-align: left;
+            max-width: 180px;
+        }
+
+        .cart-items img {
+            width: 200px;
+            height: auto;
+            border-radius: 5px;
+        }
+        .cart-items td {
+            vertical-align: middle;
+        }
+        .quantity {
+            display: flex;
+            margin-top: 78px;
+            
+        }
+        .quantity button {
+            background-color: #ffffff00;
+            border: none;
+            padding: 5px 8px;
+            margin: 0 3px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .quantity span{
+            background-color: #FFF;
+            border-radius: 8px;
+            padding: 10px 12px;
+            width: 12px;
+            text-align: center;
+            justify-content: center;
+            margin: 0 3px;
+        }
+        .price-box {
+            background-color: #ffeb99;
+            padding: 15px;
+            width: 300px;
+            height: 425px;
+            border-radius: 5px;
+            margin-top: 45px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .right{
+            position: fixed;
+            top: 110px; /* Adjust this value to position it where you want */
+            right: 60px; /* Adjust this value to position it on the right side */
+            z-index: 1001;
+        }
+        .price-box h3 {
+            margin-bottom: 20px;
+        }
+        .price-elements{
+            margin: 50px 0 50px 0;
+        }
+        .price-box div {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .buy-btn{
+            background-color: #ffffff77;
+            color: #1D63FF;
+            border: 2px solid #1D63FF;
+            padding: 12px;
+            margin-top: 25px;
+            border-radius: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.50s ease, box-shadow 0.50s ease, background-color 0.50s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .buy-btn:hover{
+            transform: translateY(-5px);
+            background-color: #1D63FF; 
+            color: white;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+            border: none;
+        }
+
+    </style>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
+</head>
+<body>
+    <header>
+        <div class="logo">Aura<span>Mart</span></div>
+        <nav class="nav-links">
+            <a href="/home_page/">Home</a>
+            <a href="#">Profile</a>
+            <a href="/order_page/">Orders</a>
+        </nav>
+        
+    </header>
+
+    <div class="cart_name">
+        <p style="font-size: 1.3rem;">Cart Items</p>
+        <hr style="border: 0.1px solid rgba(0, 0, 0, 0.463);">
+    </div>
+
+    <div class="container" id="cart-container">
+        <table class="cart-items">
+            <tr class="headings">
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price Per Unit</th>
+                <th>Total Price</th>
+            </tr>
+            {% for item in products %}
+            <tr id="row-{{ item.product.id }}">
+                <td> <img src="{{ item.product.image.url }}" alt="Product Image">
+                    <p>{{ item.product.name }}</p>
+                </td>
+                <td>
+                    <button class="update-quantity" data-product="{{ item.product.id }}" data-change="-1">-</button>
+                    <span id="quantity-{{ item.product.id }}">{{ item.quantity }}</span>
+                    <button class="update-quantity" data-product="{{ item.product.id }}" data-change="1">+</button>
+                </td>
+                <td id="unit-price-{{ item.product.id }}">₹{{ item.product.price }}</td>
+                <td id="total-price-{{ item.product.id }}">₹{{ item.total_price }}</td>
+            </tr>
+            {% endfor %}
+        
+        </table>
+    
+        <div class="right">
+
+            <div class="price-box">
+                <h3>Price Details</h3>
+                <hr style="border: 0.1px solid rgba(0, 0, 0, 0.185); margin-bottom: 30px;">
+                <div class="price-elements"><span>Price</span><span id="cart-total-price">₹{{total_price}}</span></div>                
+                <div class="price-elements"><span>Discount</span><span>20%</span></div>
+                <div class="price-elements"><span>Delivery Charge</span><span>50</span></div>
+                <div class="price-elements"><span>Protection Fee</span><span>50</span></div>
+                <hr style="border: 0.1px solid rgba(0, 0, 0, 0.185); margin-top: 30px;">
+                <div style="margin-top: 30px;"><strong>Total Price</strong><strong id="cart-total">₹{{cart_price}}</strong></div>
+            </div>
+            <div">
+                <a href="/order/"><button class="buy-btn">Buy</button></a>
+            </div>
+        </div>
+    </div>
+
+     <script> 
+        document.addEventListener("DOMContentLoaded", function () {
+            attachEventListeners();
+        });
+
+        function attachEventListeners() {
+            document.querySelectorAll(".update-quantity").forEach(button => {
+                button.addEventListener("click", function () {
+                    let productId = this.dataset.product;
+                    let change = this.dataset.change;
+
+                    fetch('/update_cart/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': getCSRFToken()
+                        },
+                        body: JSON.stringify({ product_id: productId, change: parseInt(change) })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.quantity === 0) {
+                            document.getElementById(`row-${productId}`).remove();
+                        } else {
+                            document.getElementById(`quantity-${productId}`).textContent = data.quantity;
+                            document.getElementById(`total-price-${productId}`).textContent = `₹${data.item_total}`;
+                        }
+                        document.getElementById('cart-total').textContent = `₹${data.cart_price}`;
+                        
+                        refreshCart(); 
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            });
+        }
+
+        function refreshCart() {
+        fetch('/aurabag/')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("cart-total").innerText = `₹${data.cart_price}`;
+
+            // Fully refresh the cart-total-price element
+            let priceElement = document.getElementById("cart-total-price");
+            let newPriceElement = document.createElement("span");
+            newPriceElement.id = "cart-total-price";
+            newPriceElement.innerText = `₹${data.cart_price}`;
+            
+            priceElement.parentNode.replaceChild(newPriceElement, priceElement);
+
+            data.items.forEach(item => {
+                let quantityElem = document.getElementById(`quantity-${item.product_id}`);
+                if (quantityElem) {
+                    quantityElem.innerText = item.quantity;
+                }
+
+                let totalPriceElem = document.getElementById(`total-price-${item.product_id}`);
+                if (totalPriceElem) {
+                    totalPriceElem.innerText = `₹${item.item_total}`;
+                }
+
+                let unitPriceElem = document.getElementById(`unit-price-${item.product_id}`);
+                if (unitPriceElem) {
+                    unitPriceElem.innerText = `₹${item.unit_price}`; 
+                }
+            });
+        })
+        .catch(error => console.error('Error updating cart:', error));
+    }
+
+        // Function to get CSRF Token for secure AJAX requests
+        function getCSRFToken() {
+            return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            attachEventListeners();
+
+            // Stagger animation for cart items
+            gsap.from(".cart_name", { 
+                opacity: 0, 
+                y: 20, 
+                duration: 1.2, 
+                stagger: 0.3,
+                delay: .5, 
+                ease: "power2.out" 
+            });
+
+            gsap.from(".cart-items tr", { 
+                opacity: 0, 
+                y: 20, 
+                duration: 1.2, 
+                stagger: 0.3,
+                delay: 1, 
+                ease: "power2.out" 
+            });
+
+            // Animate price-box
+            gsap.from(".price-box", { 
+                opacity: 0, 
+                x: 50, 
+                duration: 1, 
+                delay: 1, 
+                ease: "power3.out" 
+            });
+
+            // Animate Buy button
+            gsap.from(".buy-btn", { 
+                opacity: 0, 
+                scale: 1, 
+                duration: 0.5, 
+                delay: 1, 
+                ease: "elastic.out(1, 1)" 
+            });
+
+            gsap.from(".logo", { 
+                opacity: 0, 
+                x: -50, 
+                duration: 1.5, 
+                ease: "power3.out" 
+            });
+
+            gsap.from(".nav-links", { 
+                opacity: 0, 
+                y: -20, 
+                duration: 0.8, 
+                delay: 0.5, 
+                stagger: 0.2, 
+                ease: "power2.out" 
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Inder&display=swap" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+        <title>User Profile</title>
+        <style>
+            *{
+                padding: 0;
+                margin: 0;
+                font-family: "Inder", serif;
+                font-weight: 400;
+                font-style: normal;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: "Inder", serif;
+                margin: 0;
+                padding: 0;
+                background-color: #FFD800;
+            }
+
+            body::-webkit-scrollbar {
+                display: none; /* Hides scrollbar in Chrome, Safari, Edge */
+            }
+
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px 80px;
+                background-color: #FFD800;
+                margin-bottom: 1.5rem;
+            }
+
+            .logo {
+                font-size: 26px;
+                color: #000;
+            }
+
+            .logo span {
+                color: #1D84F7;
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 50px;
+            }
+
+            .nav-links a {
+                position: relative;
+                text-decoration: none;
+                color: #000;
+                font-size: 18px;
+                transition: 0.3s;
+                padding-bottom: 4px;
+            }   
+
+            .nav-links a::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 0%;
+                height: 2px;
+                background-color: #1D84F7;
+                transition: width 0.3s ease-in-out;
+            }
+
+            .nav-links a:hover::after {
+                width: 100%;
+            }
+
+            .container {
+                width: 80%;
+                margin: 100px auto;
+                margin-bottom: 0;
+                background-color: #ffffff99;
+                padding: 50px 100px;
+                border-radius: 20px;
+                text-align: center;
+                position: relative;
+            }
+            .profile-img {
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                position: absolute;
+                top: -90px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: white;
+                padding: 5px;
+            }
+            h2 {
+                margin-top: 100px;
+                margin-bottom: 60px;
+                font-size: 45px;
+            }
+            .section {
+                background: #ffffffa2;
+                padding: 15px;
+                margin-bottom: 50px;
+                border-radius: 16px;
+                text-align: left;
+            }
+            .info {
+                margin-top: 30px;
+                margin-left: 35px;
+                display: flex;
+                flex-direction: column;
+            }
+            .info div {
+                background: #f9f9f9;
+                padding: 10px;
+                border-radius: 10px;
+                margin-bottom: 15px;
+            }
+            .links {
+                text-align: left;
+                margin-top: 20px;
+            }
+            .links a {
+                display: block;
+                text-decoration: none;
+                color: red;
+                margin-top: 5px;
+            }
+
+            .value{
+                margin: 10px;
+                background-color: #ffffff;
+            }
+
+            .value p{
+                font-size: 1.2rem;
+            }
+
+            h3{
+                margin: 15px;
+                font-size: 20px;
+            }
+
+            .footer-links {
+                margin-top: 50px;
+                margin-bottom: 50px;
+                margin-left: 165px;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .footer-links a{
+                text-decoration: none;
+                font-size: 1.3rem;
+                color: #1c1cb2;
+            }
+
+            .footer-links a:hover{
+                opacity: 0.75;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="logo">Aura<span>Mart</span></div>
+            <nav class="nav-links">
+                <a href="/home_page/">Home</a>
+                <a href="/aurabag/">AuraBag</a>
+                <a href="/home_page/">Contact</a>
+            </nav>
+        </header>
+        <div class="container">
+
+            {% if user_info.gender == 'Male' %}
+                <img src="/static/image/Men.png" alt="Profile Image" class="profile-img">
+            {%endif%}
+            {% if user_info.gender == 'Female' %}
+                <img src="/static/image/Women.png" alt="Profile Image" class="profile-img">
+            {%endif%}
+            {% if user_info.gender == 'Other' %}
+                <img src="/static/image/Other.png" alt="Profile Image" class="profile-img">
+            {%endif%}
+
+            <h2>{{user_info.first_name}} {{user_info.last_name}}</h2>
+            
+            <div class="section">
+                <h3>Personal Information</h3>
+                <div class="info">
+                    <p>Email</p>
+                    <div class="value"><p>{{user_info.email}}</p></div>
+                    <p>First Name</p>
+                    <div class="value"><p>{{user_info.first_name}}</p></div>
+                    <p>Last Name</p>
+                    <div class="value"><p>{{user_info.last_name}}</p></div>
+                    <p>Gender</p>
+                    <div class="value"><p>{{user_info.gender}}</p></div>
+                    <p>Phone Number</p>
+                    <div class="value"><p>{{user_info.phone_number}}</p></div>
+                    <p>Country</p>
+                    <div class="value"><p>{{user_info.country}}</p></div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>Address Information</h3>
+                <div class="info">
+                    <p>Address 1</p>
+                    <div class="value"><p>{{user_info.address_1}}</p></div>
+                    {% if user_info.address_2%}
+                    <p>Address 2</p>
+                    <div class="value"><p>{{user_info.address_2}}</p></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="footer-links">
+            <a href="/profile_form/">Edit Profile</a><br>
+            <a href="/security_check/">Edit Security Q</a><br>
+            <a href="/reset_password/">Change Password</a><br>
+            <a href="/auraexit/" style="color: red;">AuraExit</a><br>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                gsap.from(".logo", {
+                    opacity: 0,
+                    x: -50,
+                    duration: .5,
+                    stagger: 0.5,
+                    ease: "power3.out"
+                });
+
+                gsap.from(".nav-links", {
+                    opacity: 0,
+                    y: -10,
+                    duration: 1,
+                    delay: .5,
+                    ease: "power2.out"
+                });
+    
+                gsap.from(".container", {
+                    opacity: 0,
+                    scale: 0.5,
+                    duration: 1,
+                    delay: 0.3,
+                    ease: "back.out(1.5)"
+                });
+
+                gsap.from(".profile-img", {
+                    opacity: 0,
+                    scale: 0.5,
+                    duration: 1,
+                    delay: 0.5,
+                    ease: "back.out(1.5)"
+                });
+    
+                gsap.from("h2", {
+                    opacity: 0,
+                    y: -20,
+                    duration: 1,
+                    delay: 0.7,
+                    ease: "power2.out"
+                });
+    
+                gsap.from(".section", {
+                    opacity: 0,
+                    x: -50,
+                    duration: 1,
+                    stagger: 0.3,
+                    delay: 0.9,
+                    ease: "power3.out"
+                });
+    
+                gsap.from(".footer-links a", {
+                    opacity: 0,
+                    y: 10,
+                    duration: 1,
+                    stagger: 0.2,
+                    delay: 1.2,
+                    ease: "power2.out"
+                });
+            });
+        </script>
+    
+    </body>
+    </html>
